@@ -1,0 +1,21 @@
+.transparent-header {
+    background-color: transparent;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.transparent-header.navbar-dark {
+    background-color: black;
+    color: white;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+    transition: 1s;
+    color: white;
+    border-bottom: 2px solid white;
+}
