@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <!-- Custom CSS -->
     <style>
         html {
@@ -26,87 +26,250 @@
             flex-direction: column;
             justify-content: center;
         }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 95%;
+            max-width: 800px;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Activity options */
+        .activity-options {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .activity-option {
+            flex-basis: calc(20% - 2px); /* Three activities in a row with spacing */
+            padding: 40px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="img/logo.png" width="60px"/></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#bowling">Bowling</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#air-hockey">Air Hockey</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#dining">Dining</a>
-                    </li>
-                </ul>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="img/logo.png" width="60px"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#bowling">Bowling</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#air-hockey">Air Hockey</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dining">Dining</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Cover Section -->
+<section class="cover">
+    <h1>Welcome to Our Fun Center</h1>
+    <p>Your go-to place for bowling, air hockey, and dining</p>
+</section>
+
+<!-- Bowling Section -->
+<section id="bowling" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="img/pexels-matthias-zomer-344034.jpg" alt="Bowling" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2>Bowling Fun</h2>
+                <p>Experience the thrill of knocking down pins with your friends and family. Our state-of-the-art bowling lanes are perfect for all skill levels.</p>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Cover Section -->
-    <section class="cover">
-        <h1>Welcome to Our Fun Center</h1>
-        <p>Your go-to place for bowling, air hockey, and dining</p>
-    </section>
-
-    <!-- Bowling Section -->
-    <section id="bowling" class="bg-light py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="img/pexels-matthias-zomer-344034.jpg" alt="Bowling" class="img-fluid">
-                </div>
-                <div class="col-md-6">
-                    <h2>Bowling Fun</h2>
-                    <p>Experience the thrill of knocking down pins with your friends and family. Our state-of-the-art bowling lanes are perfect for all skill levels.</p>
-                </div>
+<!-- Air Hockey Section -->
+<section id="air-hockey" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Air Hockey Excitement</h2>
+                <p>Challenge your friends to fast-paced air hockey games. Our arcade-style air hockey tables provide endless entertainment.</p>
+            </div>
+            <div class="col-md-6">
+                <img src="img/pexels-pavel-danilyuk-7234445.jpg" alt="Air Hockey" class="img-fluid">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Air Hockey Section -->
-    <section id="air-hockey" class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Air Hockey Excitement</h2>
-                    <p>Challenge your friends to fast-paced air hockey games. Our arcade-style air hockey tables provide endless entertainment.</p>
-                </div>
-                <div class="col-md-6">
-                    <img src="img/pexels-pavel-danilyuk-7234445.jpg" alt="Air Hockey" class="img-fluid">
-                </div>
+<!-- Dining Section -->
+<section id="dining" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="img/pexels-adrienn-1537635.jpg" alt="Dining" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2>Delicious Dining</h2>
+                <p>Enjoy a wide variety of mouthwatering dishes in our restaurant. Whether you're craving pizza, burgers, or salads, we have it all.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Dining Section -->
-    <section id="dining" class="bg-light py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="img/pexels-adrienn-1537635.jpg" alt="Dining" class="img-fluid">
+<!-- Reservation Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <span id="closePopup" class="close-popup">&times;</span>
+        <h2>Reservation</h2>
+        <form>
+            <!-- Name Input -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+
+            <!-- Activity options -->
+            <div class="activity-options">
+                <div class="activity-option">
+                    <h3>Bowling Reservation</h3>
+                    <div class="form-group">
+                        <label for="bowlingHours">Select Hours:</label>
+                        <select class="form-control" id="bowlingHours">
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numLanes">Select Number of Lanes:</label>
+                        <select class="form-control" id="numLanes">
+                            <option value="1">1 Lane</option>
+                            <option value="2">2 Lanes</option>
+                            <option value="3">3 Lanes</option>
+                            <option value="4">4 Lanes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bowlingDate">Select Date:</label>
+                        <input type="date" class="form-control" id="bowlingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bowlingTime">Select Time:</label>
+                        <input type="time" class="form-control" id="bowlingTime" required>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <h2>Delicious Dining</h2>
-                    <p>Enjoy a wide variety of mouthwatering dishes in our restaurant. Whether you're craving pizza, burgers, or salads, we have it all.</p>
+
+                <!-- Air Hockey Reservation Options -->
+                <div class="activity-option">
+                    <h3>Air Hockey Reservation</h3>
+                    <div class="form-group">
+                        <label for="airhockeyHours">Select Hours:</label>
+                        <select class="form-control" id="airhockeyHours">
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numTables">Select Number of Lanes:</label>
+                        <select class="form-control" id="numTables">
+                            <option value="1">1 Table</option>
+                            <option value="2">2 Tables</option>
+                            <option value="3">3 Tables</option>
+                            <option value="4">4 Tables</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="airhockeyDate">Select Date:</label>
+                        <input type="date" class="form-control" id="airhockeyDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="airhockeyTime">Select Time:</label>
+                        <input type="time" class="form-control" id="airhockeyTime" required>
+                    </div>
+                </div>
+
+                <!-- Dining Reservation Options -->
+                <div class="activity-option">
+                    <h3>Dining Reservation</h3>
+                    <div class="form-group">
+                        <label for="numPersons">Enter Number of People:</label>
+                        <input type="number" class="form-control" id="numPersons" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="diningDate">Select Date:</label>
+                        <input type="date" class="form-control" id="diningDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="diningTime">Select Time:</label>
+                        <input type="time" class="form-control" id="diningTime" required>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit Reservation</button>
+        </form>
+    </div>
+</div>
+
+<!-- Reservation Button -->
+<a href="#reservation" class="btn btn-primary fixed-top-right" style="position: fixed; top: 10px; right: 10px; z-index: 9999;" id="openPopupButton">Reserve Now</a>
+
+<!-- Bootstrap JS (Optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // JavaScript to popup
+    const openPopupButton = document.getElementById('openPopupButton');
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('closePopup');
+
+    openPopupButton.addEventListener('click', () => {
+        popup.style.display = 'block';
+    });
+
+    closePopup.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+    // Close the popup if the user clicks outside the popup content
+    window.addEventListener('click', (event) => {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
