@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontpage</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom styles for the cover image */
+        .cover {
+            background-image: url('img/pexels-skitterphoto-4192.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="img/logo.png" width="60px"/></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bowling">Bowling</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#air-hockey">Air Hockey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dining">Dining</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cover Section -->
+    <section class="cover">
+        <h1>Welcome to Our Fun Center</h1>
+        <p>Your go-to place for bowling, air hockey, and dining</p>
+    </section>
+
+    <!-- Bowling Section -->
+    <section id="bowling" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="img/pexels-matthias-zomer-344034.jpg" alt="Bowling" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Bowling Fun</h2>
+                    <p>Experience the thrill of knocking down pins with your friends and family. Our state-of-the-art bowling lanes are perfect for all skill levels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Air Hockey Section -->
+    <section id="air-hockey" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Air Hockey Excitement</h2>
+                    <p>Challenge your friends to fast-paced air hockey games. Our arcade-style air hockey tables provide endless entertainment.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="img/pexels-pavel-danilyuk-7234445.jpg" alt="Air Hockey" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dining Section -->
+    <section id="dining" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="img/pexels-adrienn-1537635.jpg" alt="Dining" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Delicious Dining</h2>
+                    <p>Enjoy a wide variety of mouthwatering dishes in our restaurant. Whether you're craving pizza, burgers, or salads, we have it all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
