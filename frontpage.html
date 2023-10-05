@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <!-- Custom CSS -->
     <style>
         html {
@@ -26,6 +26,49 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 95%;
+            max-width: 800px;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Activity options */
+        .activity-options {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .activity-option {
+            flex-basis: calc(20% - 2px); /* Three activities in a row with spacing */
+            padding: 40px;
         }
     </style>
 </head>
@@ -60,6 +103,7 @@
             </div>
         </nav>
     </header>
+
 
     <!-- Cover Section -->
     <section class="cover">
@@ -145,10 +189,132 @@
         </div>
     </section>
 
+    <!-- Reservation Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="close-popup">&times;</span>
+            <h2>Reservation</h2>
+            <form>
+                <!-- Name Input -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+
+                <!-- Activity options -->
+                <div class="activity-options">
+                    <div class="activity-option">
+                        <h3>Bowling Reservation</h3>
+                        <div class="form-group">
+                            <label for="bowlingHours">Select Hours:</label>
+                            <select class="form-control" id="bowlingHours">
+                                <option value="1">1 Hour</option>
+                                <option value="2">2 Hours</option>
+                            </select>
+                        </div>
+                        <!-- ... (Other bowling reservation options) ... -->
+                        <div class="form-group">
+                            <label for="numLanes">Select Number of Lanes:</label>
+                            <select class="form-control" id="numLanes">
+                                <option value="1">1 Lane</option>
+                                <option value="2">2 Lanes</option>
+                                <option value="3">3 Lanes</option>
+                                <option value="4">4 Lanes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bowlingDate">Select Date:</label>
+                            <input type="date" class="form-control" id="bowlingDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bowlingTime">Select Time:</label>
+                            <input type="time" class="form-control" id="bowlingTime" required>
+                        </div>
+                    </div>
+
+                    <!-- Air Hockey Reservation Options -->
+                    <div class="activity-option">
+                        <h3>Air Hockey Reservation</h3>
+                        <!-- ... (Air hockey reservation options) ... -->
+                        <div class="form-group">
+                            <label for="airhockeyHours">Select Hours:</label>
+                            <select class="form-control" id="airhockeyHours">
+                                <option value="1">1 Hour</option>
+                                <option value="2">2 Hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="numAirTables">Select Number of Lanes:</label>
+                            <select class="form-control" id="numAirTables">
+                                <option value="1">1 Table</option>
+                                <option value="2">2 Table</option>
+                                <option value="3">3 Table</option>
+                                <option value="4">4 Table</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="airHockeyDate">Select Date:</label>
+                            <input type="date" class="form-control" id="airHockeyDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="airHockeyTime">Select Time:</label>
+                            <input type="time" class="form-control" id="airHockeyTime" required>
+                        </div>
+                    </div>
+
+                    <!-- Dining Reservation Options -->
+                    <div class="activity-option">
+                        <h3>Dining Reservation</h3>
+                        <!-- ... (Dining reservation options) ... -->
+                        <div class="form-group">
+                            <label for="numPersons">Enter Number of People:</label>
+                            <input type="number" class="form-control" id="numPersons" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diningDate">Select Date:</label>
+                            <input type="date" class="form-control" id="diningDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diningTime">Select Time:</label>
+                            <input type="time" class="form-control" id="diningTime" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit Reservation</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Bootstrap JS (Optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="stylesheets/scripts.js"></script>
+
+
+    <script>
+        // JavaScript to popup
+        const openPopupButton = document.querySelector('.book-now'); // Select the "Book Now" button
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+
+        openPopupButton.addEventListener('click', () => {
+            popup.style.display = 'block';
+        });
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        // Close the popup if the user clicks outside the popup content
+        window.addEventListener('click', (event) => {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>
