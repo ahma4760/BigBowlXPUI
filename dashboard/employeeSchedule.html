@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+    </style>
+</head>
+<body>
+            <!-- Main Content Area -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="container mt-4">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Employee Schedule</h1>
+                    </div>
+                    <div id="chartdiv"></div>
+                </div>
+            </main>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script>
+        /**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ * 
+ * For more information visit:
+ * https://www.amcharts.com/
+ * 
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.paddingRight = 30;
+chart.dateFormatter.inputDateFormat = "hh:mm a";
+
+var colorSet = new am4core.ColorSet();
+colorSet.saturation = 0.4;
+
+var Group1 = chart.colors.getIndex(0);
+var Group2 = chart.colors.getIndex(2);
+var Group3 = chart.colors.getIndex(4);
+
+chart.data = [
+  {
+    name: "John",
+    fromDate: "2018-01-01 08:00",
+    toDate: "2018-01-01 17:00",
+    color: Group1
+  },
+  {
+    name: "Tim",
+    fromDate: "2018-01-01 8:30",
+    toDate: "2018-01-01 18:00",
+    color: Group1
+  },
+  {
+    name: "Ann",
+    fromDate: "2018-01-01 9:30",
+    toDate: "2018-01-01 18:30",
+    color: Group2
+  },
+
+  {
+    name: "Jane",
+    fromDate: "2018-01-01 09:00",
+    toDate: "2018-01-01 18:00",
+    color: Group2
+  },
+  {
+    name: "Crystal",
+    fromDate: "2018-01-01 8:00",
+    toDate: "2018-01-01 17:00",
+    color: Group3
+  },
+
+  {
+    name: "Peter",
+    fromDate: "2018-01-01 8:00",
+    toDate: "2018-01-01 16:00",
+    color: Group1
+  },
+];
+
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "name";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.inversed = true;
+
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.dateFormatter.dateFormat = "hh:mm a";
+dateAxis.renderer.minGridDistance = 70;
+dateAxis.baseInterval = { count: 30, timeUnit: "minute" };
+dateAxis.max = new Date(2018, 0, 1, 20, 0, 0, 0).getTime();
+dateAxis.min = new Date(2018, 0, 1, 7, 0, 0, 0).getTime();
+dateAxis.strictMinMax = true;
+dateAxis.renderer.tooltipLocation = 0;
+dateAxis.dateFormats.setKey('hour', 'hh:mm a');
+
+var series1 = chart.series.push(new am4charts.ColumnSeries());
+//series1.columns.template.width = am4core.percent(80);
+series1.columns.template.tooltipText = "{name}: {openDateX} - {dateX}";
+series1.dataFields.openDateX = "fromDate";
+series1.dataFields.dateX = "toDate";
+series1.dataFields.categoryY = "name";
+series1.columns.template.propertyFields.fill = "color"; // get color from data
+series1.columns.template.propertyFields.stroke = "color";
+series1.columns.template.strokeOpacity = 1;
+    </script>
+</body>
+</body>
+</html>
