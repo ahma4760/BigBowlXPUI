@@ -19,3 +19,8 @@
     color: white;
     border-bottom: 2px solid white;
 }
+
+.navbar-nav .nav-link {
+    color: white;
+    transition: 1s;
+}
