@@ -561,12 +561,12 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Friday') {
-                openingHour = 17;
-                closingHour = 2;
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
-            if (selectedDay === 'Saturday') {
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
             }
@@ -604,9 +604,19 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Monday') {
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
             // Format the opening and closing hours as "HH:mm" strings
@@ -639,9 +649,19 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Monday') {
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
             // Format the opening and closing hours as "HH:mm" strings
