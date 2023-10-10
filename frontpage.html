@@ -378,12 +378,12 @@
             <span id="closePopup" class="close-popup">&times;</span>
 
             <h2>Reservation</h2>
-            <form id="reservationForm">
+            <form id="orderForm" action="/order" method="post">
 
                 <!-- Name Input -->
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                 </div>
 
 
@@ -394,7 +394,7 @@
                         <h3>Bowling Reservation</h3>
                         <div class="form-group">
                             <label for="bowlingHours">Select Hours:</label>
-                            <select class="form-control" id="bowlingHours">
+                            <select class="form-control" id="bowlingHours" name="bowlingHours">
                                 <option value="1">1 Hour</option>
                                 <option value="2">2 Hours</option>
                             </select>
@@ -402,12 +402,12 @@
                         <!-- ... (Other bowling reservation options) ... -->
                         <div class="form-group">
                             <label for="bowlingTime">Select Time:</label>
-                            <input type="time" class="form-control" id="bowlingTime" >
+                            <input type="time" class="form-control" id="bowlingTime" name="bowlingTime">
                         </div>
 
                         <div class="form-group">
                             <label for="numLanes">Select Number of Lanes:</label>
-                            <select class="form-control" id="numLanes">
+                            <select class="form-control" id="numLanes" name="numLanes">
                                 <option value="1">1 Lane</option>
                                 <option value="2">2 Lanes</option>
                                 <option value="3">3 Lanes</option>
@@ -416,7 +416,7 @@
                         </div>
                         <div class="form-group">
                             <label for="bowlingDate">Select Date:</label>
-                            <input type="date" class="form-control" id="bowlingDate" >
+                            <input type="date" class="form-control" id="bowlingDate" name="bowlingDate">
                         </div>
 
                     </div>
@@ -427,18 +427,18 @@
                         <!-- ... (Air hockey reservation options) ... -->
                         <div class="form-group">
                             <label for="airhockeyHours">Select Hours:</label>
-                            <select class="form-control" id="airhockeyHours">
+                            <select class="form-control" id="airhockeyHours" name="airhockeyHours">
                                 <option value="1">1 Hour</option>
                                 <option value="2">2 Hours</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="airHockeyTime">Select Time:</label>
-                            <input type="time" class="form-control" id="airHockeyTime" >
+                            <input type="time" class="form-control" id="airHockeyTime" name="airhockeyTime">
                         </div>
                         <div class="form-group">
                             <label for="numAirTables">Select Number of Tables:</label>
-                            <select class="form-control" id="numAirTables">
+                            <select class="form-control" id="numAirTables" name="numAirTables">
                                 <option value="1">1 Table</option>
                                 <option value="2">2 Table</option>
                                 <option value="3">3 Table</option>
@@ -447,7 +447,7 @@
                         </div>
                         <div class="form-group">
                             <label for="airHockeyDate">Select Date:</label>
-                            <input type="date" class="form-control" id="airHockeyDate" >
+                            <input type="date" class="form-control" id="airHockeyDate" name="airhockeyDate" >
                         </div>
                     </div>
 
@@ -457,46 +457,22 @@
                         <!-- ... (Dining reservation options) ... -->
                         <div class="form-group">
                             <label for="diningDate">Select Date:</label>
-                            <input type="date" class="form-control" id="diningDate" >
+                            <input type="date" class="form-control" id="diningDate" name="diningDate">
                         </div>
                         <div class="form-group">
                             <label for="diningTime">Select Time:</label>
-                            <input type="time" class="form-control" id="diningTime">
+                            <input type="time" class="form-control" id="diningTime" name="diningTime">
                         </div>
                         <div class="form-group">
-                            <label for="tableSelect">Select Tables:</label>
-                            <select class="form-control" id="tableSelect">
-                                <optgroup label="A1-A8">
-                                    <option value="1">A1</option>
-                                    <option value="2">A2</option>
-                                    <option value="3">A3</option>
-                                    <option value="4">A4</option>
-                                    <option value="5">A5</option>
-                                    <option value="6">A6</option>
-                                    <option value="7">A7</option>
-                                    <option value="8">A8</option>
-                                </optgroup>
-                                <optgroup label="B1-B8">
-                                    <option value="1">B1</option>
-                                    <option value="2">B2</option>
-                                    <option value="3">B3</option>
-                                    <option value="4">B4</option>
-                                    <option value="5">B5</option>
-                                    <option value="6">B6</option>
-                                    <option value="7">B7</option>
-                                    <option value="8">B8</option>
-                                </optgroup>
-                                <optgroup label="C1-C4">
-                                    <option value="1">C1</option>
-                                    <option value="2">C2</option>
-                                    <option value="3">C3</option>
-                                    <option value="4">C4</option>
-                                </optgroup>
-                                <optgroup label="D1-D4">
-                                    <option value="1">D1</option>
-                                    <option value="2">D2</option>
-                                    <option value="3">D3</option>
-                                    <option value="4">D4</option>
+                            <label for="tableSelect">Select Table size:</label>
+                            <select class="form-control" id="tableSelect" name="tableSelect">
+                                <optgroup label="Gruppe størrelse">
+                                    <option value="1">1-2</option>
+                                    <option value="2">3-4</option>
+                                    <option value="3">5-6</option>
+                                    <option value="4">7-10</option>
+                                    <option value="5">11-16</option>
+                                    <option value="6">17-20</option>
                                 </optgroup>
                             </select>
                         </div>
