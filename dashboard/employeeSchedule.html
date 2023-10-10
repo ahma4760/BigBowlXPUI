@@ -25,7 +25,8 @@
     <div class="container mt-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Employee Schedule</h1>
-        <button type="button" class="btn btn-primary" id="buttonNewSchedule" data-bs-toggle="modal" data-bs-target="#editScheduleModal">
+        <button type="button" class="btn btn-primary" id="buttonNewSchedule" data-bs-toggle="modal"
+          data-bs-target="#editScheduleModal">
           Create new schedule entry
         </button>
       </div>
@@ -75,14 +76,15 @@
             <select id="employeeSelect" class="form-select" aria-label="Default select example">
             </select>
             <label for="startTimeSelect" id="startTimeSelectLabel">Start time</label>
-            <input type="time" id="startTimeSelect" class="form-control" />
+            <input type="time" id="startTimeSelect" class="form-control" value="09:00" />
             <label for="endTimeSelect" id="endTimeSelectLabel">End time</label>
-            <input type="time" id="endTimeSelect" class="form-control" />
+            <input type="time" id="endTimeSelect" class="form-control" value="17:00" />
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" id="buttonDelete" class="btn btn-outline-danger">Delete</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" id="buttonSaveChanges" class="btn btn-primary">Save changes</button>
+          <button type="button" id="buttonCreateNew" class="btn btn-primary">Create new</button>
         </div>
       </div>
     </div>
@@ -99,13 +101,13 @@
   <script>
 
 
-let employeeSelect = document.getElementById("employeeSelect")
-async function getEmployees() {
-    try{
+    let employeeSelect = document.getElementById("employeeSelect")
+    async function getEmployees() {
+      try {
         const res = await fetch('http://localhost:3333/employees')
-        if (res.status >= 400){
-            const error = new Error(`Error ${res.status} ${res.statusText}`)
-            throw error
+        if (res.status >= 400) {
+          const error = new Error(`Error ${res.status} ${res.statusText}`)
+          throw error
         }
         const body = await res.json()
         //return body
@@ -115,27 +117,20 @@ async function getEmployees() {
           option.innerText = element.name
           employeeSelect.appendChild(option)
         })
-    }
-    catch(err){
+      }
+      catch (err) {
         console.log(err.message)
+      }
     }
-  }
 
 
-// Fill employee list in "edit / add schedule modal"
-getEmployees()
+    // Fill employee list in "edit / add schedule modal"
+    getEmployees()
 
 
 
-const buttonNewSchedule = document.getElementById("buttonNewSchedule")
-const editScheduleModalLabel = document.getElementById("editScheduleModalLabel")
-const buttonDelete = document.getElementById("buttonDelete")
-buttonNewSchedule.onclick = function() {
-  editScheduleModalLabel.innerText = "Create new schedule entry"
-  buttonDelete.style.visibility = "hidden"
-}
 
-// #region Chart
+    // #region Chart
     /**
 * ---------------------------------------
 * This demo was created using amCharts 4.
@@ -202,7 +197,67 @@ buttonNewSchedule.onclick = function() {
       document.getElementById("endTimeSelect").value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
       editScheduleModal.show()
     }, this);
-// #endregion
+    // #endregion
+  
+
+    const buttonNewSchedule = document.getElementById("buttonNewSchedule")
+    const editScheduleModalLabel = document.getElementById("editScheduleModalLabel")
+    const buttonDelete = document.getElementById("buttonDelete")
+    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
+    const buttonCreateNew = document.getElementById("buttonCreateNew")
+    const startTimeSelect = document.getElementById("startTimeSelect")
+    const endTimeSelect = document.getElementById("endTimeSelect")
+
+    let selectedDate = "2023-10-01"
+
+    buttonNewSchedule.onclick = function () {
+      editScheduleModalLabel.innerText = "Create new schedule entry"
+      buttonDelete.style.visibility = "hidden"
+      buttonSaveChanges.style.visibility = "hidden"
+    }
+
+    function makeOptions(method, body) {
+      const opts = {
+        method: method,
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        }
+      }
+      if (body) { //Observe how we can add new fields to an object when needed
+        opts.body = JSON.stringify(body);
+      }
+      return opts;
+    }
+
+
+    buttonCreateNew.onclick = async function () {
+      // Create new object for schedule entry
+      const scheduleEntry = {}
+      scheduleEntry.id = 0
+      scheduleEntry.userId = parseInt(employeeSelect.value)
+      scheduleEntry.name = employeeSelect.options[employeeSelect.selectedIndex].text
+      scheduleEntry.fromDate = `${selectedDate} ${startTimeSelect.value}`
+      scheduleEntry.toDate = `${selectedDate} ${endTimeSelect.value}`
+
+      const options = makeOptions("POST", scheduleEntry)
+      try {
+        scheduleEntry = await fetch("http://localhost:3333/schedule", options).then(evt => {
+          editScheduleModal.hide()
+          chart.addData(scheduleEntry)
+        })
+        
+      } catch (err) {
+        if (err.apiError) {
+          console.error("Full API error: ", err.apiError)
+        } else {
+          console.error(err.message)
+        }
+
+      }
+    }
+
+
   </script>
 
 
