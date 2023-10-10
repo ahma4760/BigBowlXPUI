@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <!-- Custom CSS -->
     <style>
         html {
@@ -27,14 +27,134 @@
             flex-direction: column;
             justify-content: center;
         }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url('img/bowlingball.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px;
+            border-radius: 10px;
+            width: 95%;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: whitesmoke; /* Text color */
+        }
+
+        .popup-content h2 {
+            font-size: 24px; /* Heading font size */
+            color: #fff; /* Heading text color */
+        }
+
+        .popup-content label {
+            color: white; /* Label text color */
+        }
+
+        .popup-content input[type="text"],
+        .popup-content input[type="number"],
+        .popup-content select,
+        .popup-content input[type="date"],
+        .popup-content input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .popup-content button {
+            background-color: #007BFF; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background-color: #0056b3; /* Button background color on hover */
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Style for the submit button */
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for form inputs and labels */
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Additional styling for activity options if needed */
+        .activity-option {
+            /* Add your custom styles here */
+        }
+
+        /* Activity options */
+        .activity-options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .activity-option {
+            flex-basis: calc(20% - 2px); /* Three activities in a row with spacing */
+            padding: 40px;
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
     <header class="transparent-header">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="#"><img src="your-logo.png" alt="Logo"></a>
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="#"><img src="img/logo.png" alt="Logo" width="60px" ></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,21 +170,24 @@
                         <a class="nav-link" href="#dining">Dining</a>
                     </li>
                     <li class="nav-item">
-
-                        <a class="nav-link book-now" href="#">Book Now</a>
-
                         <a class="nav-link" href="#Omos">Om os</a>
-
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#practical-info">Praktisk information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link book-now" href="#">Book Now</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
 
+
     <!-- Cover Section -->
     <section class="cover">
-        <h1>Welcome to Our Fun Center</h1>
-        <p>Your go-to place for Bowling, Air Hockey, and Dining</p>
+        <h1>Velkommen til vores sjove center</h1>
+        <p>Dit foretrukne sted for bowling, air hockey og spisning</p>
     </section>
 
     <!-- Bowling Section -->
@@ -75,8 +198,10 @@
                     <img src="img/pexels-matthias-zomer-344034.jpg" alt="Bowling" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <h2>Bowling Fun</h2>
-                    <p>Experience the thrill of knocking down pins with your friends and family. Our state-of-the-art bowling lanes are perfect for all skill levels.</p>
+                    <h2>Bowling sjov</h2>
+                    <p>Træd ind i en verden af strikes, spares og uforglemmelig sjov, når du begiver dig
+                        ud på et spændende bowlingeventyr med dine kære. På vores topmoderne bowlingbane
+                        tilbyder vi en enestående oplevelse, skræddersyet til alle færdighedsniveauer.</p>
                 </div>
             </div>
         </div>
@@ -87,8 +212,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Air Hockey Excitement</h2>
-                    <p>Challenge your friends to fast-paced air hockey games. Our arcade-style air hockey tables provide endless entertainment.</p>
+                    <h2>Spænding i Air Hockey</h2>
+                    <p>Forbered dig på at antænde din konkurrenceånd og udfordre dine venner til
+                        hjertebankende air hockey-kampe. Dyk ned i spændingen ved vores arkadestil air hockey-borde,
+                        hvor der venter endeløs underholdning.</p>
                 </div>
                 <div class="col-md-6">
                     <img src="img/pexels-pavel-danilyuk-7234445.jpg" alt="Air Hockey" class="img-fluid">
@@ -105,8 +232,10 @@
                     <img src="img/pexels-adrienn-1537635.jpg" alt="Dining" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <h2>Delicious Dining</h2>
-                    <p>Enjoy a wide variety of mouthwatering dishes in our restaurant. Whether you're craving pizza, burgers, or salads, we have it all.</p>
+                    <h2>Lækker Dining</h2>
+                    <p>Forkæl dine smagsløg med en kulinarisk rejse på vores restaurant, der vil pirre din smagssans.
+                        Fra lækre pizzaer til mundvandsfremkaldende burgere og friske, sprøde salater byder vores
+                        alsidige menu på noget for enhver smag og er sikker på at tilfredsstille enhver lyst.</p>
                 </div>
             </div>
         </div>
@@ -121,34 +250,422 @@
                 </div>
                 <div class="col-md-6">
                     <h2>Om os</h2>
-                    <p>
-                        Vi er stolte af at være din ultimative destination for bowling, airhockey og lækker mad i hjertet af byen. Med årtiers erfaring i underholdningsbranchen har vi skabt et unikt sted, hvor sjov, konkurrence og god smag går hånd i hånd.<br>
-                        <br>
-                        <strong>Bowling:</strong>
-                        Vores state-of-the-art bowlingbaner giver dig den bedste bowlingoplevelse, uanset om du er en nybegynder eller en erfaren spiller. Vi har det nyeste udstyr og tilbyder både traditionel og cosmic bowling for at tilfredsstille alle aldre og niveauer.<br>
-                        <br>
-                        <strong>Airhockey:</strong>
-                        Udfordr dine venner til spændende airhockey-kampe på vores professionelle borde. Det er hurtig action og intense dueller, der får dit hjerte til at banke. Vi har også turneringer og arrangementer for ægte airhockeyentusiaster.<br>
-                        <br>
-                        <strong>Mad og Drikke:</strong>
-                        Vores café byder på en lækker menu med noget for enhver smag. Fra saftige burgere og krydrede kyllingvinger til sunde salater og vegetariske muligheder - vi har det hele. Nyd dine yndlingsdrikkevarer i vores hyggelige loungeområde.<br>
-                        <br>
-                        <strong>Arrangementer:</strong>
-                        Vi er det perfekte sted til fødselsdagsfester, firmaarrangementer og sociale sammenkomster. Vores team kan tilpasse pakker til dine behov, herunder mad, spil og sjove aktiviteter.<br>
-                        <br>
-                        <strong>Besøg os i dag:</strong>
-                        Kom og oplev en uforglemmelig tid fyldt med latter, konkurrence og kulinariske oplevelser. Strike & Glide Entertainment Center er det bedste sted at slappe af og have det sjovt med familie og venner.<br>
+                    <p>Velkommen til det ultimative underholdningsmekka midt i hjertet af vores by,
+                        hvor vi byder dig velkommen til en oplevelse, der kombinerer bowling,
+                        airhockey og kulinarisk nydelse i perfekt harmoni. Med årtiers erfaring i
+                        underholdningsbranchen har vi skabt et enestående sted, hvor sjov, konkurrence og gastronomiske
+                        herligheder forenes for at skabe uforglemmelige stunder.</p>
 
-                        Vi ser frem til at byde dig velkommen til en fantastisk tid hos os!</p>
+                    <strong>Bowling:</strong>
+                    <p>Vores topmoderne bowlingbaner leverer den ultimative bowlingoplevelse,
+                        uanset om du er en nybegynder eller en erfaren spiller. Med det nyeste udstyr og muligheden
+                        for både traditionelt og cosmic bowling, imødekommer vi behovene for alle aldre og
+                        færdighedsniveauer. Vores bowlingbaner er designet til at bringe smil og spænding til dig og
+                        dine venner eller familie.</p>
+
+                    <strong>Airhockey:</strong>
+                    <p>Udfordr dine venner til intense airhockey-dueller på vores professionelle borde.
+                        Oplev hurtig action og hjertebankende spænding, der kun airhockey kan levere.
+                        Vores sted er også vært for turneringer og arrangementer, der er skræddersyet til sande
+                        airhockeyentusiaster.</p>
+
+                    <strong>Mad og Drikke:</strong>
+                    <p>Vores café frister med en lækker menu, der tilfredsstiller enhver smagsløg.
+                        Uanset om du er til saftige burgere, krydrede kyllingvinger,
+                        sunde salater eller vegetariske retter, finder du det hele her.
+                        Nyd dine yndlingsdrikkevarer i vores hyggelige loungeområde og gør din oplevelse
+                        endnu mere mindeværdig.</p>
+
+                    <strong>Arrangementer:</strong>
+                    <p>Vi er det ideelle sted for fødselsdagsfester, firmaarrangementer og sociale sammenkomster.
+                        Vores erfarne team kan skræddersy pakker efter dine behov, inklusive mad,
+                        spil og sjove aktiviteter. Lad os hjælpe dig med at skabe uforglemmelige øjeblikke
+                        sammen med dine nærmeste.</p>
+
+                    <strong>Besøg os i dag:</strong>
+                    <p>Tag det første skridt ind i en verden fyldt med latter, konkurrence og gastronomiske oplevelser.
+                        Strike & Glide Entertainment Center er det ultimative sted at slappe af og have det sjovt
+                        med familie og venner. Vi ser frem til at byde dig velkommen til en fantastisk tid hos os!</p>
                 </div>
             </div>
         </div>
     </section>
 
+
+    <!-- Practical Information Column -->
+    <section id="practical-info" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="img/Bowling-shoe.jpg" alt="Dining" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2>Praktisk information</h2>
+                    <p>Tid, pris og adresse</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book now knap -->
+    <section id="book-now" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center"> <!-- Center the button horizontally -->
+                <div class="col-md-6 text-center">
+                    <div class="book-now-button">
+                        <a class="nav-link book-now" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!--Footer-->
+
+    <div class="container">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+            <div class="col mb-3">
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <img src="img/logo.png" alt="Logo" width="60px">
+            </div>
+
+            <div class="col mb-3">
+
+            </div>
+
+            <div class="col mb-3">
+                <h5>Adresse</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">Fiske land 27, <br> Båden 1675 </a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">Mandag-Fredag <br> Blank</a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">Lørdag-Søndag <br> blank</a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Kontakt</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">fisk@bowling.com</a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">+45 98 87 65 43</a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Medarbejder</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Login</a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- Reservation Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="close-popup">&times;</span>
+
+            <h2>Reservation</h2>
+            <form id="orderForm" action="/order" method="post">
+
+                <!-- Name Input -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                </div>
+
+
+
+                <!-- Activity options -->
+                <div class="activity-options">
+                    <div class="activity-option">
+                        <h3>Bowling Reservation</h3>
+                        <div class="form-group">
+                            <label for="bowlingHours">Select Hours:</label>
+                            <select class="form-control" id="bowlingHours" name="bowlingHours">
+                                <option value="1">1 Hour</option>
+                                <option value="2">2 Hours</option>
+                            </select>
+                        </div>
+                        <!-- ... (Other bowling reservation options) ... -->
+                        <div class="form-group">
+                            <label for="bowlingTime">Select Time:</label>
+                            <input type="time" class="form-control" id="bowlingTime" name="bowlingTime">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numLanes">Select Number of Lanes:</label>
+                            <select class="form-control" id="numLanes" name="numLanes">
+                                <option value="1">1 Lane</option>
+                                <option value="2">2 Lanes</option>
+                                <option value="3">3 Lanes</option>
+                                <option value="4">4 Lanes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bowlingDate">Select Date:</label>
+                            <input type="date" class="form-control" id="bowlingDate" name="bowlingDate">
+                        </div>
+
+                    </div>
+
+                    <!-- Air Hockey Reservation Options -->
+                    <div class="activity-option">
+                        <h3>Air Hockey Reservation</h3>
+                        <!-- ... (Air hockey reservation options) ... -->
+                        <div class="form-group">
+                            <label for="airhockeyHours">Select Hours:</label>
+                            <select class="form-control" id="airhockeyHours" name="airhockeyHours">
+                                <option value="1">1 Hour</option>
+                                <option value="2">2 Hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="airHockeyTime">Select Time:</label>
+                            <input type="time" class="form-control" id="airHockeyTime" name="airhockeyTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="numAirTables">Select Number of Tables:</label>
+                            <select class="form-control" id="numAirTables" name="numAirTables">
+                                <option value="1">1 Table</option>
+                                <option value="2">2 Table</option>
+                                <option value="3">3 Table</option>
+                                <option value="4">4 Table</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="airHockeyDate">Select Date:</label>
+                            <input type="date" class="form-control" id="airHockeyDate" name="airhockeyDate" >
+                        </div>
+                    </div>
+
+                    <!-- Dining Reservation Options -->
+                    <div class="activity-option">
+                        <h3>Dining Reservation</h3>
+                        <!-- ... (Dining reservation options) ... -->
+                        <div class="form-group">
+                            <label for="diningDate">Select Date:</label>
+                            <input type="date" class="form-control" id="diningDate" name="diningDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="diningTime">Select Time:</label>
+                            <input type="time" class="form-control" id="diningTime" name="diningTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="tableSelect">Select Table size:</label>
+                            <select class="form-control" id="tableSelect" name="tableSelect">
+                                <optgroup label="Gruppe størrelse">
+                                    <option value="1">1-2</option>
+                                    <option value="2">3-4</option>
+                                    <option value="3">5-6</option>
+                                    <option value="4">7-10</option>
+                                    <option value="5">11-16</option>
+                                    <option value="6">17-20</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit Reservation</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Bootstrap JS (Optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="stylesheets/scripts.js"></script>
+
+
+    <script>
+        const tableAvailability = {
+            1: true,  // Available
+            2: false, // Unavailable
+            3: true,  // Available
+        };
+
+        // Get a reference to the table select element
+        const tableSelect = document.getElementById('tableSelect');
+
+        // Loop through the table availability object and update existing options
+        for (const table in tableAvailability) {
+            const option = tableSelect.querySelector(`option[value="${table}"]`);
+
+            // Check availability and update the text accordingly
+            if (option) {
+                if (!tableAvailability[table]) {
+                    option.textContent = `A ${table} (Unavailable)`;
+                    option.disabled = true;
+                } else {
+                    option.textContent = `A ${table}`;
+                    option.disabled = false; // Make sure it's not disabled if it's available
+                }
+            }
+        }
+
+
+
+
+
+        // JavaScript to popup
+        const openPopupButton = document.querySelector('.book-now'); // Select the "Book Now" button
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+
+        openPopupButton.addEventListener('click', () => {
+            popup.style.display = 'block';
+        });
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        // Close the popup if the user clicks outside the popup content
+        window.addEventListener('click', (event) => {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+
+
+        // Get the date input element
+        const dateInput = document.getElementById('bowlingDate');
+
+        // Get the time input element
+        const bowlingTimeInput = document.getElementById('bowlingTime');
+
+        // Add an event listener to the date input
+        dateInput.addEventListener('change', () => {
+            const selectedDate = new Date(dateInput.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 12;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Friday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            if (selectedDay === 'Saturday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            bowlingTimeInput.min = openingTime;
+            bowlingTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            bowlingTimeInput.value = openingTime;
+        });
+
+        // Get the date input element
+        const dateInputAir = document.getElementById('airHockeyDate');
+
+        // Get the time input element
+        const airHockeyTimeInput = document.getElementById('airHockeyTime');
+
+        // Add an event listener to the date input
+        dateInputAir.addEventListener('change', () => {
+            const selectedDate = new Date(dateInputAir.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 11;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Monday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            airHockeyTimeInput.min = openingTime;
+            airHockeyTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            airHockeyTimeInput.value = openingTime;
+
+
+        });
+
+        // Get the date input element
+        const dateInputDining = document.getElementById('diningDate');
+
+        // Get the time input element
+        const diningTimeInput = document.getElementById('diningTime');
+
+        // Add an event listener to the date input
+        dateInputDining.addEventListener('change', () => {
+            const selectedDate = new Date(dateInputDining.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 11;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Monday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            diningTimeInput.min = openingTime;
+            diningTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            diningTimeInput.value = openingTime;
+
+
+        });
+
+
+
+
+
+
+
+
+    </script>
+
 </body>
 </html>

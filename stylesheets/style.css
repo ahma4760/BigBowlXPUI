@@ -1,3 +1,6 @@
+
+/*Header*/
+
 .transparent-header {
     background-color: transparent;
     color: white;
@@ -18,4 +21,31 @@
     transition: 1s;
     color: white;
     border-bottom: 2px solid white;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    transition: 1s;
+}
+
+/*book now button*/
+
+.book-now-button {
+    display: inline-block;
+    background-color: #1ca21c;
+    padding: 20px 40px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.book-now-button a {
+    text-decoration: none;
+    color: white;
+    font-family: Copperplate, Fantasy;
+    font-size: 50px;
+}
+
+.book-now-button:hover {
+    background-color: #078c07;
+    cursor: pointer;
 }
