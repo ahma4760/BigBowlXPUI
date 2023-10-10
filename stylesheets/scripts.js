@@ -13,37 +13,36 @@ $(document).ready(function() {
     });
 });
 
-//Fetching data from the form
-const reservationForm = document.getElementById('reservationForm');
-
-reservationForm.addEventListener('submit', function (e) {
+document.getElementById('orderForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission
 
-    // Collect form data
-    const formData = new FormData(reservationForm);
-
-    // Convert form data to JSON
-    const jsonData = {};
+    // Serialize form data to JSON
+    const formData = new FormData(this);
+    const formDataJSON = {};
     formData.forEach((value, key) => {
-        jsonData[key] = value;
+        formDataJSON[key] = value;
     });
 
-    // Send a POST request to create a reservation
+    // Send the data to the server using fetch
     fetch('/order', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(jsonData),
+        body: JSON.stringify({ reservationDTO: formDataJSON }), // Assuming your DTO structure
     })
-        .then((response) => {
+        .then(response => {
             if (response.ok) {
-                // Handle a successful response (e.g., show a success message)
+                return response.json();
             } else {
-                // Handle errors (e.g., show an error message)
+                throw new Error('Failed to send data to the server.');
             }
         })
-        .catch((error) => {
+        .then(data => {
+            // Handle the server's response here
+            console.log('Server response:', data);
+        })
+        .catch(error => {
             console.error('Error:', error);
         });
 });
