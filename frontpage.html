@@ -45,11 +45,52 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: white;
+            background-image: url('img/bowlingball.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             width: 95%;
             max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: whitesmoke; /* Text color */
+        }
+
+        .popup-content h2 {
+            font-size: 24px; /* Heading font size */
+            color: #fff; /* Heading text color */
+        }
+
+        .popup-content label {
+            color: white; /* Label text color */
+        }
+
+        .popup-content input[type="text"],
+        .popup-content input[type="number"],
+        .popup-content select,
+        .popup-content input[type="date"],
+        .popup-content input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .popup-content button {
+            background-color: #007BFF; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background-color: #0056b3; /* Button background color on hover */
         }
 
         .close-popup {
@@ -57,19 +98,55 @@
             top: 10px;
             right: 10px;
             cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Style for the submit button */
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for form inputs and labels */
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Additional styling for activity options if needed */
+        .activity-option {
+            /* Add your custom styles here */
         }
 
         /* Activity options */
         .activity-options {
             display: flex;
             justify-content: space-between;
-
         }
 
         .activity-option {
             flex-basis: calc(20% - 2px); /* Three activities in a row with spacing */
             padding: 40px;
         }
+
     </style>
 </head>
 <body>
@@ -189,17 +266,20 @@
         </div>
     </section>
 
+
     <!-- Reservation Popup -->
     <div class="popup" id="popup">
         <div class="popup-content">
             <span id="closePopup" class="close-popup">&times;</span>
-            <h2>Reservation</h2>
+            <h2 class="text-center mb-4">Reservation</h2>
             <form>
                 <!-- Name Input -->
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
+
+
 
                 <!-- Activity options -->
                 <div class="activity-options">
@@ -214,6 +294,11 @@
                         </div>
                         <!-- ... (Other bowling reservation options) ... -->
                         <div class="form-group">
+                            <label for="bowlingTime">Select Time:</label>
+                            <input type="time" class="form-control" id="bowlingTime" >
+                        </div>
+
+                        <div class="form-group">
                             <label for="numLanes">Select Number of Lanes:</label>
                             <select class="form-control" id="numLanes">
                                 <option value="1">1 Lane</option>
@@ -224,12 +309,9 @@
                         </div>
                         <div class="form-group">
                             <label for="bowlingDate">Select Date:</label>
-                            <input type="date" class="form-control" id="bowlingDate" required>
+                            <input type="date" class="form-control" id="bowlingDate" >
                         </div>
-                        <div class="form-group">
-                            <label for="bowlingTime">Select Time:</label>
-                            <input type="time" class="form-control" id="bowlingTime" required>
-                        </div>
+
                     </div>
 
                     <!-- Air Hockey Reservation Options -->
@@ -244,7 +326,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="numAirTables">Select Number of Lanes:</label>
+                            <label for="airHockeyTime">Select Time:</label>
+                            <input type="time" class="form-control" id="airHockeyTime" >
+                        </div>
+                        <div class="form-group">
+                            <label for="numAirTables">Select Number of Tables:</label>
                             <select class="form-control" id="numAirTables">
                                 <option value="1">1 Table</option>
                                 <option value="2">2 Table</option>
@@ -254,11 +340,7 @@
                         </div>
                         <div class="form-group">
                             <label for="airHockeyDate">Select Date:</label>
-                            <input type="date" class="form-control" id="airHockeyDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="airHockeyTime">Select Time:</label>
-                            <input type="time" class="form-control" id="airHockeyTime" required>
+                            <input type="date" class="form-control" id="airHockeyDate" >
                         </div>
                     </div>
 
@@ -267,17 +349,51 @@
                         <h3>Dining Reservation</h3>
                         <!-- ... (Dining reservation options) ... -->
                         <div class="form-group">
-                            <label for="numPersons">Enter Number of People:</label>
-                            <input type="number" class="form-control" id="numPersons" required>
-                        </div>
-                        <div class="form-group">
                             <label for="diningDate">Select Date:</label>
-                            <input type="date" class="form-control" id="diningDate" required>
+                            <input type="date" class="form-control" id="diningDate" >
                         </div>
                         <div class="form-group">
                             <label for="diningTime">Select Time:</label>
-                            <input type="time" class="form-control" id="diningTime" required>
+                            <input type="time" class="form-control" id="diningTime">
                         </div>
+                        <div class="form-group">
+                            <label for="tableSelect">Select Tables:</label>
+                            <select class="form-control" id="tableSelect">
+                                <optgroup label="A1-A8">
+                                    <option value="1">A1</option>
+                                    <option value="2">A2</option>
+                                    <option value="3">A3</option>
+                                    <option value="4">A4</option>
+                                    <option value="5">A5</option>
+                                    <option value="6">A6</option>
+                                    <option value="7">A7</option>
+                                    <option value="8">A8</option>
+                                </optgroup>
+                                <optgroup label="B1-B8">
+                                    <option value="1">B1</option>
+                                    <option value="2">B2</option>
+                                    <option value="3">B3</option>
+                                    <option value="4">B4</option>
+                                    <option value="5">B5</option>
+                                    <option value="6">B6</option>
+                                    <option value="7">B7</option>
+                                    <option value="8">B8</option>
+                                </optgroup>
+                                <optgroup label="C1-C4">
+                                    <option value="1">C1</option>
+                                    <option value="2">C2</option>
+                                    <option value="3">C3</option>
+                                    <option value="4">C4</option>
+                                </optgroup>
+                                <optgroup label="D1-D4">
+                                    <option value="1">D1</option>
+                                    <option value="2">D2</option>
+                                    <option value="3">D3</option>
+                                    <option value="4">D4</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
 
@@ -295,6 +411,35 @@
 
 
     <script>
+        const tableAvailability = {
+            1: true,  // Available
+            2: false, // Unavailable
+            3: true,  // Available
+        };
+
+        // Get a reference to the table select element
+        const tableSelect = document.getElementById('tableSelect');
+
+        // Loop through the table availability object and update existing options
+        for (const table in tableAvailability) {
+            const option = tableSelect.querySelector(`option[value="${table}"]`);
+
+            // Check availability and update the text accordingly
+            if (option) {
+                if (!tableAvailability[table]) {
+                    option.textContent = `A ${table} (Unavailable)`;
+                    option.disabled = true;
+                } else {
+                    option.textContent = `A ${table}`;
+                    option.disabled = false; // Make sure it's not disabled if it's available
+                }
+            }
+        }
+
+
+
+
+
         // JavaScript to popup
         const openPopupButton = document.querySelector('.book-now'); // Select the "Book Now" button
         const popup = document.getElementById('popup');
@@ -314,6 +459,128 @@
                 popup.style.display = 'none';
             }
         });
+
+
+        // Get the date input element
+        const dateInput = document.getElementById('bowlingDate');
+
+        // Get the time input element
+        const bowlingTimeInput = document.getElementById('bowlingTime');
+
+        // Add an event listener to the date input
+        dateInput.addEventListener('change', () => {
+            const selectedDate = new Date(dateInput.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 12;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Friday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            if (selectedDay === 'Saturday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            bowlingTimeInput.min = openingTime;
+            bowlingTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            bowlingTimeInput.value = openingTime;
+        });
+
+        // Get the date input element
+        const dateInputAir = document.getElementById('airHockeyDate');
+
+        // Get the time input element
+        const airHockeyTimeInput = document.getElementById('airHockeyTime');
+
+        // Add an event listener to the date input
+        dateInputAir.addEventListener('change', () => {
+            const selectedDate = new Date(dateInputAir.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 11;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Monday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            airHockeyTimeInput.min = openingTime;
+            airHockeyTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            airHockeyTimeInput.value = openingTime;
+
+
+        });
+
+        // Get the date input element
+        const dateInputDining = document.getElementById('diningDate');
+
+        // Get the time input element
+        const diningTimeInput = document.getElementById('diningTime');
+
+        // Add an event listener to the date input
+        dateInputDining.addEventListener('change', () => {
+            const selectedDate = new Date(dateInputDining.value);
+            const selectedDay = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Define the default opening and closing hours
+            let openingHour = 11;
+            let closingHour = 23;
+
+            // If it's Monday, set special opening and closing hours
+            if (selectedDay === 'Monday') {
+                openingHour = 17;
+                closingHour = 2;
+            }
+
+            // Format the opening and closing hours as "HH:mm" strings
+            const openingTime = `${openingHour.toString().padStart(2, '0')}:00`;
+            const closingTime = `${closingHour.toString().padStart(2, '0')}:00`;
+
+            // Set the min and max attributes of the time input
+            diningTimeInput.min = openingTime;
+            diningTimeInput.max = closingTime;
+
+            // Optionally, you can also set the initial value of the time input to the opening time
+            diningTimeInput.value = openingTime;
+
+
+        });
+
+
+
+
+
+
+
+
     </script>
 
 </body>
