@@ -28,7 +28,7 @@
         <label for="dateSelect" class="form-date">Select a date</label>
         <input type="date" id="dateSelect">
         <button type="button" class="btn btn-primary" id="buttonNewSchedule" data-bs-toggle="modal"
-          data-bs-target="#editScheduleModal">
+          data-bs-target="#createScheduleModal">
           Create new schedule entry
         </button>
       </div>
@@ -36,35 +36,8 @@
     </div>
   </main>
 
-  <!-- #region New schedule entry modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create new schedule entry</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="roleSelect" class="form-label">Employee</label>
-            <select id="roleSelect" class="form-select" aria-label="Default select example">
-              <option selected value="1">Mikael</option>
-              <option value="2">Jens</option>
-              <option value="3">Kristine</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- #endregion -->
-
   <!-- #region Edit schedule modal -->
-  <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModal"
+  <!-- <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModal"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -90,6 +63,34 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <!-- #endregion -->
+
+  <!-- #region Create schedule modal -->
+  <div class="modal fade" id="createScheduleModal" tabindex="-1" role="dialog" aria-labelledby="createScheduleModal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createScheduleModalLabel">Create new schedule entry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="createScheduleModal-body">
+          <form>
+            <label for="createEmployeeSelect">Employee</label>
+            <select id="createEmployeeSelect" class="form-select" aria-label="Default select example">
+            </select>
+            <label for="createStartTimeSelect">Start time</label>
+            <input type="time" id="createStartTimeSelect" class="form-control" value="09:00" />
+            <label for="createEndTimeSelect">End time</label>
+            <input type="time" id="createEndTimeSelect" class="form-control" value="17:00" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="buttonCreateNew" onclick="createNewSchedule()" class="btn btn-primary">Create new</button>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- #endregion -->
 
@@ -105,14 +106,14 @@
 
     // Get HTML elements
     const buttonNewSchedule = document.getElementById("buttonNewSchedule")
-    const editScheduleModalLabel = document.getElementById("editScheduleModalLabel")
     const buttonDelete = document.getElementById("buttonDelete")
     const buttonSaveChanges = document.getElementById("buttonSaveChanges")
     const buttonCreateNew = document.getElementById("buttonCreateNew")
-    const startTimeSelect = document.getElementById("startTimeSelect")
-    const endTimeSelect = document.getElementById("endTimeSelect")
+    const createStartTimeSelect = document.getElementById("createStartTimeSelect")
+    const createEndTimeSelect = document.getElementById("createEndTimeSelect")
     const dateSelect = document.getElementById("dateSelect")
-    let employeeSelect = document.getElementById("employeeSelect")
+    const createScheduleModal = new bootstrap.Modal(document.getElementById("createScheduleModal"))
+    let createEmployeeSelect = document.getElementById("createEmployeeSelect")
 
     async function getEmployees() {
       try {
@@ -127,7 +128,7 @@
           let option = document.createElement("option")
           option.setAttribute("value", element.id)
           option.innerText = element.name
-          employeeSelect.appendChild(option)
+          createEmployeeSelect.appendChild(option)
         })
       }
       catch (err) {
@@ -207,14 +208,20 @@
     series1.columns.template.strokeOpacity = 1;
 
     // Edit / delete schedule modal
-    var editScheduleModal = new bootstrap.Modal(document.getElementById('editScheduleModal'))
+    //var editScheduleModal = new bootstrap.Modal(document.getElementById('editScheduleModal'))
 
     series1.columns.template.events.on("hit", function (ev) {
       //console.log("clicked on ", ev.target.dataItem.dataContext);
       const dataContext = ev.target.dataItem.dataContext
-      document.getElementById("startTimeSelect").value = `${("0" + dataContext.fromDate.getHours()).slice(-2)}:${("0" + dataContext.fromDate.getMinutes()).slice(-2)}`
-      document.getElementById("endTimeSelect").value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
-      editScheduleModal.show()
+     // startTimeSelect.value = `${("0" + dataContext.fromDate.getHours()).slice(-2)}:${("0" + dataContext.fromDate.getMinutes()).slice(-2)}`
+     // endTimeSelect.value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
+     // buttonDelete.style.visibility = "visible"
+     // buttonSaveChanges.style.visibility = "visible"
+     // buttonCreateNew.style.visibility = "hidden"
+     // employeeSelect.style.visibility = "hidden"
+     // editScheduleModalLabel.innerText = "Edit schedule entry"
+     // editScheduleModal.show()
+
     }, this);
     // #endregion
  
@@ -229,13 +236,6 @@
     dateSelect.onchange = function() {
       currentDate = dateSelect.value
       updateChart()
-    }
-
-    // Button for displaying "create schedule entry" modal
-    buttonNewSchedule.onclick = function () {
-      editScheduleModalLabel.innerText = "Create new schedule entry"
-      buttonDelete.style.visibility = "hidden"
-      buttonSaveChanges.style.visibility = "hidden"
     }
 
     function makeOptions(method, body) {
@@ -253,21 +253,21 @@
     }
 
 
-    buttonCreateNew.onclick = async function () {
+    //buttonCreateNew.onclick = async function () {
+    async function createNewSchedule() {
       // Create new object for schedule entry
       let scheduleEntry = {}
       scheduleEntry.id = 0
-      scheduleEntry.userId = parseInt(employeeSelect.value)
-      scheduleEntry.name = employeeSelect.options[employeeSelect.selectedIndex].text
-      scheduleEntry.fromDate = `${currentDate} ${startTimeSelect.value}`
-      scheduleEntry.toDate = `${currentDate} ${endTimeSelect.value}`
+      scheduleEntry.userId = parseInt(createEmployeeSelect.value)
+      scheduleEntry.name = createEmployeeSelect.options[createEmployeeSelect.selectedIndex].text
+      scheduleEntry.fromDate = `${currentDate} ${createStartTimeSelect.value}`
+      scheduleEntry.toDate = `${currentDate} ${createEndTimeSelect.value}`
 
       const options = makeOptions("POST", scheduleEntry)
       try {
         await fetch("http://localhost:3333/schedule", options).then(evt => {
-          editScheduleModal.hide()
+          createScheduleModal.hide()
           updateChart()
-          //chart.addData(scheduleEntry)
         })
         
       } catch (err) {
