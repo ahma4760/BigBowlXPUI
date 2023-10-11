@@ -37,33 +37,32 @@
   </main>
 
   <!-- #region Edit schedule modal -->
-  <!-- <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModal"
+   <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModal"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editScheduleModalLabel"></h5>
+          <h5 class="modal-title" id="editScheduleModalLabel">Edit schedule entry</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="editScheduleModal-body">
           <form>
-            <label for="employeeSelect" id="employeeSelectLabel">Employee</label>
-            <select id="employeeSelect" class="form-select" aria-label="Default select example">
-            </select>
+            <input type="hidden" id="scheduleId" value="-1"/>
+            <label for="textName">Employee</label>
+            <input type="text" id="textName" class="form-control" disabled value="test" />
             <label for="startTimeSelect" id="startTimeSelectLabel">Start time</label>
-            <input type="time" id="startTimeSelect" class="form-control" value="09:00" />
+            <input type="time" id="startTimeSelect" class="form-control" />
             <label for="endTimeSelect" id="endTimeSelectLabel">End time</label>
-            <input type="time" id="endTimeSelect" class="form-control" value="17:00" />
+            <input type="time" id="endTimeSelect" class="form-control" />
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" id="buttonDelete" class="btn btn-outline-danger">Delete</button>
           <button type="button" id="buttonSaveChanges" class="btn btn-primary">Save changes</button>
-          <button type="button" id="buttonCreateNew" class="btn btn-primary">Create new</button>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
   <!-- #endregion -->
 
   <!-- #region Create schedule modal -->
@@ -106,14 +105,19 @@
 
     // Get HTML elements
     const buttonNewSchedule = document.getElementById("buttonNewSchedule")
-    const buttonDelete = document.getElementById("buttonDelete")
-    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
     const buttonCreateNew = document.getElementById("buttonCreateNew")
     const createStartTimeSelect = document.getElementById("createStartTimeSelect")
     const createEndTimeSelect = document.getElementById("createEndTimeSelect")
     const dateSelect = document.getElementById("dateSelect")
     const createScheduleModal = new bootstrap.Modal(document.getElementById("createScheduleModal"))
     let createEmployeeSelect = document.getElementById("createEmployeeSelect")
+    const editScheduleModal = new bootstrap.Modal(document.getElementById('editScheduleModal'))
+    const textName = document.getElementById("textName")
+    const startTimeSelect = document.getElementById("startTimeSelect")
+    const endTimeSelect = document.getElementById("endTimeSelect")
+    const buttonDelete = document.getElementById("buttonDelete")
+    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
+    const scheduleId = document.getElementById("scheduleId")
 
     async function getEmployees() {
       try {
@@ -208,20 +212,19 @@
     series1.columns.template.strokeOpacity = 1;
 
     // Edit / delete schedule modal
-    //var editScheduleModal = new bootstrap.Modal(document.getElementById('editScheduleModal'))
 
     series1.columns.template.events.on("hit", function (ev) {
-      //console.log("clicked on ", ev.target.dataItem.dataContext);
+      // Contains the object that was clicked
       const dataContext = ev.target.dataItem.dataContext
-     // startTimeSelect.value = `${("0" + dataContext.fromDate.getHours()).slice(-2)}:${("0" + dataContext.fromDate.getMinutes()).slice(-2)}`
-     // endTimeSelect.value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
-     // buttonDelete.style.visibility = "visible"
-     // buttonSaveChanges.style.visibility = "visible"
-     // buttonCreateNew.style.visibility = "hidden"
-     // employeeSelect.style.visibility = "hidden"
-     // editScheduleModalLabel.innerText = "Edit schedule entry"
-     // editScheduleModal.show()
 
+      // Update values in "edit schedule" modal
+      textName.value = dataContext.name
+      scheduleId.value = dataContext.id
+      startTimeSelect.value = `${("0" + dataContext.fromDate.getHours()).slice(-2)}:${("0" + dataContext.fromDate.getMinutes()).slice(-2)}`
+      endTimeSelect.value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
+
+      // Display modal
+      editScheduleModal.show()
     }, this);
     // #endregion
  
@@ -253,7 +256,6 @@
     }
 
 
-    //buttonCreateNew.onclick = async function () {
     async function createNewSchedule() {
       // Create new object for schedule entry
       let scheduleEntry = {}
@@ -279,6 +281,27 @@
 
       }
     }
+
+    buttonDelete.onclick = async function() {
+      const options = makeOptions("DELETE", null)
+      const id = scheduleId.value
+      try {
+        await fetch(`http://localhost:3333/schedule/${id}`, options).then(evt => {
+          editScheduleModal.hide()
+          updateChart()
+        })
+        
+      } catch (err) {
+        if (err.apiError) {
+          console.error("Full API error: ", err.apiError)
+        } else {
+          console.error(err.message)
+        }
+
+      }
+    }
+
+    
 
 
   </script>
