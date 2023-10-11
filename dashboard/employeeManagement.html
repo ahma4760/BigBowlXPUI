@@ -53,20 +53,16 @@
             <input type="text" class="form-control" id="textName" placeholder="John Doe">
           </div>
           <div class="mb-3">
-            <label for="textEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="textEmail" placeholder="name@example.com">
-          </div>
-          <div class="mb-3">
             <label for="roleSelect" class="form-label">Role</label>
             <select id="roleSelect" class="form-select" aria-label="Default select example">
-              <option selected value="employee">Employee</option>
-              <option value="manager">Manager</option>
+              <option selected value="0">Employee</option>
+              <option value="1">Manager</option>
             </select>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" id="buttonSaveChanges">Save changes</button>
         </div>
       </div>
     </div>
@@ -98,6 +94,10 @@
   <script>
     // Get HTML elements
     const employeeTableBody = document.getElementById("employeeTableBody")
+    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
+    const textName = document.getElementById("textName")
+    const roleSelect = document.getElementById("roleSelect")
+    const newUserModal = new bootstrap.Modal(document.getElementById('newUserModal'))
 
     // Load employee list
     async function getEmployees() {
@@ -108,7 +108,7 @@
           throw error
         }
         const body = await res.json()
-        console.log(body)
+        employeeTableBody.innerHTML = ""
         body.forEach(element => {
           let row = document.createElement("tr")
           let id = document.createElement("td")
@@ -164,6 +164,49 @@
     }
 
     getEmployees()
+
+    function makeOptions(method, body) {
+      const opts = {
+        method: method,
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        }
+      }
+      if (body) { //Observe how we can add new fields to an object when needed
+        opts.body = JSON.stringify(body);
+      }
+      return opts;
+    }
+
+    // Create new employee
+
+    buttonSaveChanges.onclick = async function() {
+      let newUser = {}
+      newUser.id = 0
+      newUser.name = textName.value
+      newUser.password = ""
+      newUser.isAdmin = parseInt(roleSelect.value)
+
+      console.log(newUser)
+
+      const options = makeOptions("POST", newUser) 
+      try {
+        await fetch("http://localhost:3333/employee", options).then(evt => {
+          newUserModal.hide()
+          getEmployees()
+        })
+        
+      } catch (err) {
+        if (err.apierror) {
+          console.error("full api error: ", err.apierror)
+        } else {
+          console.error(err.message)
+        }
+
+      }
+    }
+
   </script>
 </body>
 </body>
