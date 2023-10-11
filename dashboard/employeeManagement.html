@@ -188,8 +188,6 @@
       newUser.password = ""
       newUser.isAdmin = parseInt(roleSelect.value)
 
-      console.log(newUser)
-
       const options = makeOptions("POST", newUser) 
       try {
         await fetch("http://localhost:3333/employee", options).then(evt => {
@@ -198,8 +196,8 @@
         })
         
       } catch (err) {
-        if (err.apierror) {
-          console.error("full api error: ", err.apierror)
+        if (err.apiError) {
+          console.error("full api error: ", err.apiError)
         } else {
           console.error(err.message)
         }
