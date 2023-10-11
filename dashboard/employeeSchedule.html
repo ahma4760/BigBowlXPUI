@@ -25,6 +25,8 @@
     <div class="container mt-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Employee Schedule</h1>
+        <label for="dateSelect" class="form-date">Select a date</label>
+        <input type="date" id="dateSelect">
         <button type="button" class="btn btn-primary" id="buttonNewSchedule" data-bs-toggle="modal"
           data-bs-target="#editScheduleModal">
           Create new schedule entry
@@ -101,7 +103,17 @@
   <script>
 
 
+    // Get HTML elements
+    const buttonNewSchedule = document.getElementById("buttonNewSchedule")
+    const editScheduleModalLabel = document.getElementById("editScheduleModalLabel")
+    const buttonDelete = document.getElementById("buttonDelete")
+    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
+    const buttonCreateNew = document.getElementById("buttonCreateNew")
+    const startTimeSelect = document.getElementById("startTimeSelect")
+    const endTimeSelect = document.getElementById("endTimeSelect")
+    const dateSelect = document.getElementById("dateSelect")
     let employeeSelect = document.getElementById("employeeSelect")
+
     async function getEmployees() {
       try {
         const res = await fetch('http://localhost:3333/employees')
@@ -128,6 +140,11 @@
     getEmployees()
 
 
+
+    // Set date to today
+    let currentDate = new Date().toISOString().slice(0, 10)
+    //let currentDate = "2023-10-11"
+    dateSelect.value = currentDate
 
 
     // #region Chart
@@ -160,7 +177,7 @@
     var Group2 = chart.colors.getIndex(2);
     var Group3 = chart.colors.getIndex(4);
 
-    chart.dataSource.url = "http://localhost:3333/schedule/2023-10-01"
+    chart.dataSource.url = `http://localhost:3333/schedule/${currentDate}`
 
     var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
@@ -171,8 +188,10 @@
     dateAxis.dateFormatter.dateFormat = "hh:mm a";
     dateAxis.renderer.minGridDistance = 70;
     dateAxis.baseInterval = { count: 30, timeUnit: "minute" };
-    dateAxis.max = new Date("2023-10-01T17:00:00").getTime();
-    dateAxis.min = new Date("2023-10-01T08:00:00").getTime();
+   // dateAxis.max = new Date("2023-10-01T17:00:00").getTime();
+   // dateAxis.min = new Date("2023-10-01T08:00:00").getTime();
+    dateAxis.max = new Date(`${currentDate}T17:00:00`).getTime();
+    dateAxis.min = new Date(`${currentDate}T08:00:00`).getTime();
     dateAxis.strictMinMax = true;
     dateAxis.renderer.tooltipLocation = 0;
     dateAxis.dateFormats.setKey('hour', 'hh:mm a');
@@ -198,18 +217,21 @@
       editScheduleModal.show()
     }, this);
     // #endregion
-  
+ 
+    function updateChart() {
+      chart.dataSource.url = `http://localhost:3333/schedule/${currentDate}`
+      dateAxis.max = new Date(`${currentDate}T17:00:00`).getTime();
+      dateAxis.min = new Date(`${currentDate}T08:00:00`).getTime();
+      chart.dataSource.load()
+    }
+    
+    // Update chart on date change
+    dateSelect.onchange = function() {
+      currentDate = dateSelect.value
+      updateChart()
+    }
 
-    const buttonNewSchedule = document.getElementById("buttonNewSchedule")
-    const editScheduleModalLabel = document.getElementById("editScheduleModalLabel")
-    const buttonDelete = document.getElementById("buttonDelete")
-    const buttonSaveChanges = document.getElementById("buttonSaveChanges")
-    const buttonCreateNew = document.getElementById("buttonCreateNew")
-    const startTimeSelect = document.getElementById("startTimeSelect")
-    const endTimeSelect = document.getElementById("endTimeSelect")
-
-    let selectedDate = "2023-10-01"
-
+    // Button for displaying "create schedule entry" modal
     buttonNewSchedule.onclick = function () {
       editScheduleModalLabel.innerText = "Create new schedule entry"
       buttonDelete.style.visibility = "hidden"
@@ -233,18 +255,19 @@
 
     buttonCreateNew.onclick = async function () {
       // Create new object for schedule entry
-      const scheduleEntry = {}
+      let scheduleEntry = {}
       scheduleEntry.id = 0
       scheduleEntry.userId = parseInt(employeeSelect.value)
       scheduleEntry.name = employeeSelect.options[employeeSelect.selectedIndex].text
-      scheduleEntry.fromDate = `${selectedDate} ${startTimeSelect.value}`
-      scheduleEntry.toDate = `${selectedDate} ${endTimeSelect.value}`
+      scheduleEntry.fromDate = `${currentDate} ${startTimeSelect.value}`
+      scheduleEntry.toDate = `${currentDate} ${endTimeSelect.value}`
 
       const options = makeOptions("POST", scheduleEntry)
       try {
-        scheduleEntry = await fetch("http://localhost:3333/schedule", options).then(evt => {
+        await fetch("http://localhost:3333/schedule", options).then(evt => {
           editScheduleModal.hide()
-          chart.addData(scheduleEntry)
+          updateChart()
+          //chart.addData(scheduleEntry)
         })
         
       } catch (err) {
