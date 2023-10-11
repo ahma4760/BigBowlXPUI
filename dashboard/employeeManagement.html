@@ -1,132 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
+
 <body>
-            <!-- Main Content Area -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="container mt-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Employee Management</h1>
-                        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal">
-Create new employee
-</button>
-                    </div>
-                    <!-- Placeholder Table for Employees -->
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Add employee data here dynamically -->
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>johndoe@example.com</td>
-                                <td>Manager</td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal"><i class="bi bi-pencil"></i> Edit</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>johndoe@example.com</td>
-                                <td>Manager</td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal"><i class="bi bi-pencil"></i> Edit</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>johndoe@example.com</td>
-                                <td>Manager</td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal"><i class="bi bi-pencil"></i> Edit</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>johndoe@example.com</td>
-                                <td>Manager</td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal"><i class="bi bi-pencil"></i> Edit</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash"></i> Delete</button></td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-            </main>
+  <!-- Main Content Area -->
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="container mt-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Employee Management</h1>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newUserModal">
+          Create new employee
+        </button>
+      </div>
+      <!-- Table for Employees -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody">
+          <!-- Employee data goes here -->
+        </tbody>
+      </table>
+    </div>
+  </main>
 
-    <!-- Modal for new user -->
-<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="newUserModalLabel">Create new employee</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="mb-3">
-  <label for="textName" class="form-label">Name</label>
-  <input type="text" class="form-control" id="textName" placeholder="John Doe">
-</div>
-      <div class="mb-3">
-  <label for="textEmail" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="textEmail" placeholder="name@example.com">
-</div>
-      <div class="mb-3">
-  <label for="roleSelect" class="form-label">Role</label>
-<select id="roleSelect" class="form-select" aria-label="Default select example">
-  <option selected value="employee">Employee</option>
-  <option value="manager">Manager</option>
-</select>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+  <!-- Modal for new user -->
+  <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newUserModalLabel">Create new employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="textName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="textName" placeholder="John Doe">
+          </div>
+          <div class="mb-3">
+            <label for="textEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="textEmail" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="roleSelect" class="form-label">Role</label>
+            <select id="roleSelect" class="form-select" aria-label="Default select example">
+              <option selected value="employee">Employee</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<!-- DELETE USER confirmation modal -->
-<div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteUserModalLabel">Confirm deletion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      Are you sure you want to delete the user "USER NAME"?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes</button>
+  <!-- DELETE USER confirmation modal -->
+  <div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteUserModalLabel">Confirm deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the user "USER NAME"?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger">Yes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-    <!-- Include Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+  <!-- Include Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+  <script>
+    // Get HTML elements
+    const employeeTableBody = document.getElementById("employeeTableBody")
+
+    // Load employee list
+    async function getEmployees() {
+      try {
+        const res = await fetch('http://localhost:3333/employees')
+        if (res.status >= 400) {
+          const error = new Error(`Error ${res.status} ${res.statusText}`)
+          throw error
+        }
+        const body = await res.json()
+        console.log(body)
+        body.forEach(element => {
+          let row = document.createElement("tr")
+          let id = document.createElement("td")
+          id.innerText = element.id
+          let name = document.createElement("td")
+          name.innerText = element.name
+          let role = document.createElement("td")
+          role.innerText = element.isAdmin ? "Manager" : "Employee"
+
+          // Delete / Edit buttons
+          let buttonEdit = document.createElement("button")
+          buttonEdit.setAttribute("type", "button")
+          buttonEdit.setAttribute("class", "btn btn-primary")
+          buttonEdit.setAttribute("data-bs-toggle", "modal")
+          buttonEdit.setAttribute("data-bs-target", "#newUserModal")
+          let pencil = document.createElement("i")
+          pencil.setAttribute("class", "bi bi-pencil")
+          let span = document.createElement("span")
+          span.innerText = " Edit"
+
+          buttonEdit.appendChild(pencil)
+          buttonEdit.appendChild(span)
+          
+          let buttons = document.createElement("td")
+
+          let buttonDelete = document.createElement("button")
+          buttonDelete.setAttribute("type", "button")
+          buttonDelete.setAttribute("class", "btn btn-outline-danger")
+          //buttonDelete.setAttribute("data-bs-toggle", "modal")
+          //buttonDelete.setAttribute("data-bs-target", "#deleteUser")
+          let trash = document.createElement("i")
+          trash.setAttribute("class", "bi bi-trash")
+          let spanDelete = document.createElement("span")
+          spanDelete.innerText = " Delete"
+
+          buttonDelete.appendChild(trash)
+          buttonDelete.appendChild(spanDelete)
+
+          buttons.appendChild(buttonEdit)
+          buttons.appendChild(buttonDelete)
+
+          row.appendChild(id)
+          row.appendChild(name)
+          row.appendChild(role)
+          row.appendChild(buttons)
+
+          employeeTableBody.appendChild(row)
+        })
+      }
+      catch (err) {
+        console.log(err.message)
+      }
+    }
+
+    getEmployees()
+  </script>
 </body>
 </body>
+
 </html>
