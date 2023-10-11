@@ -378,12 +378,12 @@
             <span id="closePopup" class="close-popup">&times;</span>
 
             <h2>Reservation</h2>
-            <form id="orderForm" action="/order" method="post">
+            <form id="orderForm" action="http://localhost:3333/order" method="post" >
 
                 <!-- Name Input -->
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                    <input type="text" class="form-control" id="name" name="customer_name" placeholder="Your Name" required>
                 </div>
 
 
@@ -467,12 +467,12 @@
                             <label for="tableSelect">Select Table size:</label>
                             <select class="form-control" id="tableSelect" name="tableSelect">
                                 <optgroup label="Gruppe størrelse">
-                                    <option value="1">1-2</option>
-                                    <option value="2">3-4</option>
-                                    <option value="3">5-6</option>
-                                    <option value="4">7-10</option>
-                                    <option value="5">11-16</option>
-                                    <option value="6">17-20</option>
+                                    <option value="Table for 1-2">1-2 personer</option>
+                                    <option value="Table for 3-4">3-4 personer</option>
+                                    <option value="Table for 5-6">5-6 personer</option>
+                                    <option value="Table for 7-10">7-10 personer</option>
+                                    <option value="Table for 11-16">11-16 personer</option>
+                                    <option value="Table for 17-20">17-20 personer</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -561,12 +561,12 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Friday') {
-                openingHour = 17;
-                closingHour = 2;
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
-            if (selectedDay === 'Saturday') {
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
             }
@@ -604,9 +604,19 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Monday') {
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
             // Format the opening and closing hours as "HH:mm" strings
@@ -639,9 +649,19 @@
             let closingHour = 23;
 
             // If it's Monday, set special opening and closing hours
-            if (selectedDay === 'Monday') {
+            if (selectedDay === 'Monday' || selectedDay === 'Tuesday' || selectedDay === 'Wednesday' || selectedDay === 'Thursday') {
+                openingHour = 12;
+                closingHour = 23;
+            }
+
+            if (selectedDay === 'Friday' || selectedDay === 'Saturday') {
                 openingHour = 17;
                 closingHour = 2;
+            }
+
+            if (selectedDay === 'Sunday') {
+                openingHour = 12;
+                closingHour = 23;
             }
 
             // Format the opening and closing hours as "HH:mm" strings
