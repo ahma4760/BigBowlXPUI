@@ -57,6 +57,7 @@
             color: whitesmoke; /* Text color */
         }
 
+
         .popup-content h2 {
             font-size: 24px; /* Heading font size */
             color: #fff; /* Heading text color */
@@ -357,16 +358,37 @@
                 </ul>
             </div>
 
+            <!-- Employee login link -->
             <div class="col mb-3">
                 <h5>Medarbejder</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Login</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary" id="loginLink">Login</a></li>
                     <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
                     <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
                     <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
                     <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary"></a></li>
                 </ul>
             </div>
+
+            <!-- Login Popup -->
+            <div class="popup" id="loginPopup">
+                <div class="popup-content">
+                    <span id="closeLoginPopup" class="close-popup">&times;</span>
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+
         </footer>
     </div>
 
@@ -519,6 +541,40 @@
                 }
             }
         }
+
+        const loginLink = document.getElementById('loginLink'); // Select the "Login" link
+        const loginPopup = document.getElementById('loginPopup');
+        const closeLoginPopup = document.getElementById('closeLoginPopup');
+        const loginForm = document.getElementById('loginForm');
+
+        // Open the login popup when the "Login" link is clicked
+        loginLink.addEventListener('click', () => {
+            loginPopup.style.display = 'block';
+        });
+
+        // Close the login popup when the "Close" button is clicked
+        closeLoginPopup.addEventListener('click', () => {
+            loginPopup.style.display = 'none';
+        });
+
+        // Optionally, close the login popup if the user clicks outside the popup content
+        window.addEventListener('click', (event) => {
+            if (event.target === loginPopup) {
+                loginPopup.style.display = 'none';
+            }
+        });
+
+        // You can add a form submission event listener here to handle login functionality
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // Add code to handle login submission
+            // You can send a request to your server for authentication
+            // and then redirect the user if login is successful
+            // or show an error message if login fails.
+        });
+
+
+
 
 
 
