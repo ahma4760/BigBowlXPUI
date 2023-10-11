@@ -48,6 +48,7 @@
         <div class="modal-body" id="editScheduleModal-body">
           <form>
             <input type="hidden" id="scheduleId" value="-1"/>
+            <input type="hidden" id="userId" value="-1" />
             <label for="textName">Employee</label>
             <input type="text" id="textName" class="form-control" disabled value="test" />
             <label for="startTimeSelect" id="startTimeSelectLabel">Start time</label>
@@ -118,6 +119,7 @@
     const buttonDelete = document.getElementById("buttonDelete")
     const buttonSaveChanges = document.getElementById("buttonSaveChanges")
     const scheduleId = document.getElementById("scheduleId")
+    const userId = document.getElementById("userId")
 
     async function getEmployees() {
       try {
@@ -219,6 +221,7 @@
 
       // Update values in "edit schedule" modal
       textName.value = dataContext.name
+      userId.value = dataContext.userId
       scheduleId.value = dataContext.id
       startTimeSelect.value = `${("0" + dataContext.fromDate.getHours()).slice(-2)}:${("0" + dataContext.fromDate.getMinutes()).slice(-2)}`
       endTimeSelect.value = `${("0" + dataContext.toDate.getHours()).slice(-2)}:${("0" + dataContext.toDate.getMinutes()).slice(-2)}`
@@ -287,6 +290,34 @@
       const id = scheduleId.value
       try {
         await fetch(`http://localhost:3333/schedule/${id}`, options).then(evt => {
+          editScheduleModal.hide()
+          updateChart()
+        })
+        
+      } catch (err) {
+        if (err.apiError) {
+          console.error("Full API error: ", err.apiError)
+        } else {
+          console.error(err.message)
+        }
+
+      }
+    }
+
+    // Button for updating a schedule entry
+
+    buttonSaveChanges.onclick = async function () {
+      // Create new object for schedule entry
+      let scheduleEntry = {}
+      scheduleEntry.id = parseInt(scheduleId.value)
+      scheduleEntry.userId = parseInt(userId.value)
+      scheduleEntry.name = textName.value
+      scheduleEntry.fromDate = `${currentDate} ${startTimeSelect.value}`
+      scheduleEntry.toDate = `${currentDate} ${endTimeSelect.value}`
+
+      const options = makeOptions("PUT", scheduleEntry)
+      try {
+        await fetch("http://localhost:3333/schedule", options).then(evt => {
           editScheduleModal.hide()
           updateChart()
         })
