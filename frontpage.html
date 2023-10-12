@@ -503,7 +503,9 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Submit Reservation</button>
+                <button type="button" class="btn btn-primary" id="btn-complete-reservation">
+                    Submit Reservation
+                </button>
             </form>
         </div>
     </div>
@@ -517,6 +519,15 @@
 
 
     <script>
+        // Vælg knappen ved hjælp af dens id
+        let btnCompleteReservation = document.getElementById("btn-complete-reservation");
+
+        // Tilføj en klikbegivenhed til knappen
+        btnCompleteReservation.addEventListener("click", function() {
+            // Dette kodeblok udføres, når knappen klikkes
+            alert("Ordre modtaget!");
+            // Tilføj din ønskede logik eller handling her
+        });
         const tableAvailability = {
             1: true,  // Available
             2: false, // Unavailable
@@ -584,7 +595,6 @@
         const openPopupButton = document.querySelector('.book-now'); // Select the "Book Now" button
         const popup = document.getElementById('popup');
         const closePopup = document.getElementById('closePopup');
-
         openPopupButton.addEventListener('click', () => {
             popup.style.display = 'block';
         });
