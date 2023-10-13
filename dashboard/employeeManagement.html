@@ -102,7 +102,7 @@
     // Load employee list
     async function getEmployees() {
       try {
-        const res = await fetch('http://localhost:3333/employees')
+        const res = await fetch('http://20.73.74.12:3333/employees')
         if (res.status >= 400) {
           const error = new Error(`Error ${res.status} ${res.statusText}`)
           throw error
@@ -190,7 +190,7 @@
 
       const options = makeOptions("POST", newUser) 
       try {
-        await fetch("http://localhost:3333/employee", options).then(evt => {
+        await fetch("http://20.73.74.12:3333/employee", options).then(evt => {
           newUserModal.hide()
           getEmployees()
         })

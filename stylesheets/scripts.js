@@ -49,7 +49,7 @@ document.getElementById('orderForm').addEventListener('submit', function (e) {
         }
     }
 
-    fetch('http://localhost:3333/order', {
+    fetch('http://20.73.74.12:3333/order', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

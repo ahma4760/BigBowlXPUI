@@ -122,7 +122,7 @@
 
     async function getEmployees() {
       try {
-        const res = await fetch('http://localhost:3333/employees')
+        const res = await fetch('http://20.73.74.12:3333/employees')
         if (res.status >= 400) {
           const error = new Error(`Error ${res.status} ${res.statusText}`)
           throw error
@@ -182,7 +182,7 @@
     var Group2 = chart.colors.getIndex(2);
     var Group3 = chart.colors.getIndex(4);
 
-    chart.dataSource.url = `http://localhost:3333/schedule/${currentDate}`
+    chart.dataSource.url = `http://20.73.74.12:3333/schedule/${currentDate}`
 
     var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
@@ -230,7 +230,7 @@
     // #endregion
  
     function updateChart() {
-      chart.dataSource.url = `http://localhost:3333/schedule/${currentDate}`
+      chart.dataSource.url = `http://20.73.74.12:3333/schedule/${currentDate}`
       dateAxis.max = new Date(`${currentDate}T17:00:00`).getTime();
       dateAxis.min = new Date(`${currentDate}T08:00:00`).getTime();
       chart.dataSource.load()
@@ -268,7 +268,7 @@
 
       const options = makeOptions("POST", scheduleEntry)
       try {
-        await fetch("http://localhost:3333/schedule", options).then(evt => {
+        await fetch("http://20.73.74.12:3333/schedule", options).then(evt => {
           createScheduleModal.hide()
           updateChart()
         })
@@ -287,7 +287,7 @@
       const options = makeOptions("DELETE", null)
       const id = scheduleId.value
       try {
-        await fetch(`http://localhost:3333/schedule/${id}`, options).then(evt => {
+        await fetch(`http://20.73.74.12:3333/schedule/${id}`, options).then(evt => {
           editScheduleModal.hide()
           updateChart()
         })
@@ -315,7 +315,7 @@
 
       const options = makeOptions("PUT", scheduleEntry)
       try {
-        await fetch("http://localhost:3333/schedule", options).then(evt => {
+        await fetch("http://20.73.74.12:3333/schedule", options).then(evt => {
           editScheduleModal.hide()
           updateChart()
         })

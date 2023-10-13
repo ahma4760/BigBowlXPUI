@@ -1,6 +1,6 @@
 // This function fetches reservations from your Spring Boot application
 function fetchReservations() {
-    fetch('http://localhost:3333/order')
+    fetch('http://20.73.74.12:3333/order')
         .then(response => response.json())
         .then(orders => {
             console.log('Orders:', orders); // Log the orders
@@ -61,7 +61,7 @@ window.addEventListener('load', fetchReservations);
 
 
 function deleteReservation(reservationId) {
-    fetch(`http://localhost:3333/order/${reservationId}`, {
+    fetch(`http://20.73.74.12:3333/order/${reservationId}`, {
         method: 'DELETE'
     })
         .then(response => {
